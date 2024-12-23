@@ -48,4 +48,9 @@ export const DECREMENT = (id: number) => {
         payload: id,
     };
 };
+export const CLEAR_CART = () => {
+    return {
+      type: 'CLEAR_CART',
+    };
+  };
 

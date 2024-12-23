@@ -68,6 +68,12 @@ export const cartReducer = (state = INIT_STATE, action: Action): CartState => {
                         : item
                 ),
             };
+            case 'CLEAR_CART':
+      return {
+        ...state,
+        carts: [], // Clears the cart items
+      };
+    
 
         default:
             return state;

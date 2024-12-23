@@ -1,12 +1,13 @@
 import React from "react";
 import back from "../assets/back.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/reducers/main";
-import { REMOVE, INCREMENT, DECREMENT } from "../redux/actions/action";
+import { REMOVE, INCREMENT, DECREMENT, CLEAR_CART } from "../redux/actions/action";
 
 const CartPage: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.carts);
 
   const handleRemove = (id: number) => {
@@ -21,6 +22,16 @@ const CartPage: React.FC = () => {
     dispatch(DECREMENT(id));
   };
 
+  const handleClearCart = () => {
+    dispatch(CLEAR_CART()); // Action to clear the cart
+  };
+
+  const handleProceedToCheckout = () => {
+    alert("Items are dispatched successfully!"); // Show alert
+    handleClearCart(); // Clear the cart from Redux
+    navigate("/"); // Navigate to the first screen (home page or product page)
+  };
+
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -30,18 +41,19 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="flex flex-wrap justify-center h-[812px]">
-      <div className="w-[375px] md:w-1/2 lg:w-1/4  bg-[#171616] rounded-custom-xl text-white">
-     <Link to="/" ><img src={back} alt="Go Back"className="w-[7px] h-[14px] mt-10 ml-5 "/></Link>
+      <div className="w-[375px] md:w-1/2 lg:w-1/4 bg-[#171616] rounded-custom-xl text-white">
+        <Link to="/">
+          <img src={back} alt="Go Back" className="w-[7px] h-[14px] mt-10 ml-5 " />
+        </Link>
         <h1 className="text-4xl font-semibold mb-6 text-start text-white p-4 mt-[38px]">Cart</h1>
         {cartItems.length === 0 ? (
-          <p className="text-4xl font-semibold mb-6 text-center text-red-300 mt-[100px] ">Your cart is empty.</p>
+          <p className="text-4xl font-semibold mb-6 text-center text-red-300 mt-[100px]">Your cart is empty.</p>
         ) : (
           cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex justify-between items-center p-2 gap-2 rounded-lg mb-10 w-[320px] mx-2  h-[96px] bg-[#393939] "
+              className="flex justify-between items-center p-2 gap-2 rounded-lg mb-10 w-[320px] mx-2 h-[96px] bg-[#393939] "
             >
-              
               <img
                 src={item.image}
                 alt={item.title}
@@ -65,25 +77,22 @@ const CartPage: React.FC = () => {
                   </p>
 
                   <div className="flex items-center ml-4">
-                <button
-                  onClick={() => handleDecrement(item.id)}
-                  className="w-4 h-4 border-[1px] border-[#696969] text-[#FCF9F2] rounded-full flex items-center justify-center"
-                >
-                  -
-                </button>
-                <span className="mx-2 text-sm font-bold text-[#F9D035]">
-                  {item.quantity}
-                </span>
-                <button
-                  onClick={() => handleIncrement(item.id)}
-                  className="w-4 h-4 border-[1px] border-[#F9D035] text-[#FCF9F2] rounded-full flex items-center justify-center"
-                >
-                  +
-                </button>
-              </div>
-
-
-
+                    <button
+                      onClick={() => handleDecrement(item.id)}
+                      className="w-4 h-4 border-[1px] border-[#696969] text-[#FCF9F2] rounded-full flex items-center justify-center"
+                    >
+                      -
+                    </button>
+                    <span className="mx-2 text-sm font-bold text-[#F9D035]">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => handleIncrement(item.id)}
+                      className="w-4 h-4 border-[1px] border-[#F9D035] text-[#FCF9F2] rounded-full flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                  </div>
 
                   <button
                     onClick={() => handleRemove(item.id)}
@@ -93,13 +102,11 @@ const CartPage: React.FC = () => {
                   </button>
                 </div>
               </div>
-             
-             
             </div>
           ))
         )}
         {cartItems.length > 0 && (
-          <div className=" justify-between items-center p-2 gap-2 rounded-lg mb-10 w-[320px] mx-2  h-[96px] ">
+          <div className="justify-between items-center p-2 gap-2 rounded-lg mb-10 w-[320px] mx-2 h-[96px] ">
             <div className="flex justify-between text-[#FCF9F2] mb-2">
               <span>Subtotal</span>
               <span>${subtotal.toFixed(2)}</span>
@@ -113,7 +120,10 @@ const CartPage: React.FC = () => {
               <span>Order Total</span>
               <span>${orderTotal.toFixed(2)}</span>
             </div>
-            <button className="w-full bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] text-black py-2 rounded-lg mt-4 font-semibold">
+            <button
+              onClick={handleProceedToCheckout}
+              className="w-full bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] text-black py-2 rounded-lg mt-4 font-semibold"
+            >
               Proceed to Checkout
             </button>
           </div>

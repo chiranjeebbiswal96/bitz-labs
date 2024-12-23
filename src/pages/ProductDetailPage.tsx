@@ -78,12 +78,12 @@ const ProductDetailPage: React.FC = () => {
           <span className="text-lg font-bold text-white">${totalPrice}</span> 
         </div>
 
-        <button
+       <Link to="/cart"> <button
           onClick={addToCart}
           className="w-full bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] text-black py-2 rounded-lg mt-4 font-semibold"
         >
           Add to Cart
-        </button>
+        </button></Link>
       </div>
     </div>
   );
