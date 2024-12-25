@@ -1,11 +1,6 @@
 import React from "react";
-
-import useFetch from "../hooks/useFetch"; // Import your custom hook
+import useFetch from "../hooks/useFetch"; 
 import ProductCard from "../utils/ProductCard";
-
-
-
-
 
 
 const MenCategory: React.FC = () => {

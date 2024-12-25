@@ -12,7 +12,7 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className='flex flex-wrap justify-center h-[812px]'>
-      <div className='w-[375px] md:w-1/2 lg:w-1/4 bg-[#171616] rounded-custom-xl text-white'>
+      <div className='sm:w-[375px] md:w-1/2 lg:w-1/4 bg-[#171616] rounded-custom-xl text-white'>
         <div className='flex justify-end py-10 pr-8'>
           
           <Link to={cartItems.length > 0 ? "/cart" : "#"}>

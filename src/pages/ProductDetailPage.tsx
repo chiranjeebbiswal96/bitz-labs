@@ -46,7 +46,7 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="flex flex-wrap justify-center h-[812px]">
-      <div className="w-[375px] md:w-1/2 lg:w-1/4 bg-[#171616] rounded-custom-xl text-white p-5">
+      <div className="sm:w-[375px] md:w-1/2 lg:w-1/4 bg-[#171616] rounded-custom-xl text-white p-5">
       <Link to="/" ><img src={back} alt="Go Back"className="w-[7px] h-[14px] mt-10 ml-5 "/></Link>
         <div className="flex justify-center mt-[80px]">
           <img src={product.image} alt={product.title} className="w-[315px] h-[280px]" />
